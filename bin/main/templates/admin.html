@@ -1,0 +1,14 @@
+ <html>
+<head>
+
+</head>
+<body>
+<a>Ho Thanh Nghia</a>
+<a th:if="${#request.userPrincipal != null}" >
+<form action="#" th:action="@{/logout}" method="post">
+	<input type="submit" value="logout"/>
+</form>
+</a>
+
+</body> 
+ </html>
