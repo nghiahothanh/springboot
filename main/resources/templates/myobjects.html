@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<ul class="pagination">
+    <li th:if="${page.hasPrevious()}">
+        <a th:href="@{${page.previousPageable().getPageNumber()}}">Previous</a>
+    </li>
+    <li th:each="i : ${#numbers.sequence(0, page.totalPages - 1)}">
+        <a th:href="@{${i}}" th:class="${i == page.number ? 'active' : ''}">[[${i+1}]]</a>
+    </li>
+    <li th:if="${page.hasNext()}">
+        <a th:href="@{${page.nextPageable().getPageNumber()}}">Next</a>
+    </li>
+</ul>
+</body>
+</html>

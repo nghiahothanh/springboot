@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Product List</title>
+</head>
+<body>
+    <h1>Product List</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="product : ${products}">
+                <td th:text="${product.id}"></td>
+                <td th:text="${product.name}"></td>
+                <td th:text="${product.price}"></td>
+            </tr>
+        </tbody>
+    </table>
+    <div>
+        <a th:href="@{/products(page=${currentPage-1})}" th:if="${currentPage > 1}">Prev</a>
+        <a th:href="@{/products(page=${currentPage+1})}" th:if="${currentPage <= totalPages}">Next</a>
+    </div>
+</body>
+</html>

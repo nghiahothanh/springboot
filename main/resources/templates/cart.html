@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8" />
+<title>Cart Page</title>
+</head>
+<body>
+	<a href="/">Trang chủ</a>
+	</br>
+
+
+	<form class="buy-form" th:action="@{/cart/checkout}" method="post">
+		<table>
+			<tr th:if="${cart.items != null}" th:each="item, index : ${cart.items}">
+				<td><input type="checkbox" name="productIds"
+					th:value="${item.product.id}"></td>
+				<td th:text="${item.product.name}"></td>
+				<td>Rs.<span th:attr="id='product-price-' + ${index.index}" th:utext="${item.product.price}" ></span></td>
+				<td><input type="hidden" th:name="'productPrice' + ${index.index}" th:value="${item.product.price}"></td>
+				<td><input type="hidden" th:value="${item.product.price}"
+					name="productPrice" /> <!-- Thêm input ẩn để lưu giá trị của biến Thymeleaf --></td>
+				<td><input type="hidden" th:value="${item.product.id}"
+					name="id" /> <input type="number" min="1"
+					th:value="${item.quantity}" name="qty" onchange="updatePrice(event.target)" th:attr="data-index=${index.index}"/>
+				</td>
+				
+			</tr>
+		</table>
+		<button type="submit" value="Submit">Thanh toán</button>
+	</form>
+
+
+
+
+
+<script>
+function updatePrice(target) {
+	  const index = target.getAttribute("data-index");
+	  const quantity = parseInt(document.getElementsByName('qty')[index].value);
+	  const price = parseInt(document.getElementsByName('productPrice')[index].value);
+	  const newPrice = quantity * price;
+	  document.getElementById('product-price-'+index).textContent = newPrice;
+	  $('#product-price-'+index)
+	}
+
+</script>
+
+</body>
+</html>
